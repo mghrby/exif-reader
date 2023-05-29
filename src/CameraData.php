@@ -8,6 +8,9 @@ use ExifReader\CameraData\ExposureProgram;
 use ExifReader\CameraData\ExposureTime;
 use ExifReader\CameraData\Flash;
 use ExifReader\CameraData\FocalLength;
+use ExifReader\CameraData\FocalLengthIn35MmFilm;
+use ExifReader\CameraData\GpsLatitudeRef;
+use ExifReader\CameraData\GpsLongitudeRef;
 use ExifReader\CameraData\ISOSpeed;
 use ExifReader\CameraData\Maker;
 use ExifReader\CameraData\MakerNote;
@@ -46,6 +49,12 @@ class CameraData
     /** @var ISOSpeed */
     private $ISOSpeed;
 
+    private $focalLengthIn35MmFilm;
+
+    private $gpsLatitudeRef;
+
+    private $gpsLongitudeRef;
+
     private function __construct(
         Maker $maker,
         Model $model,
@@ -56,7 +65,11 @@ class CameraData
         FocalLength $focalLength,
         Flash $flash,
         Aperture $aperture,
-        ISOSpeed $ISOSpeed
+        ISOSpeed $ISOSpeed,
+        FocalLengthIn35MmFilm $focalLengthIn35MmFilm,
+        GpsLatitudeRef $gpsLatitudeRef,
+        GpsLongitudeRef $gpsLongitudeRef
+
     ) {
         $this->maker = $maker;
         $this->model = $model;
@@ -68,21 +81,27 @@ class CameraData
         $this->flash = $flash;
         $this->aperture = $aperture;
         $this->ISOSpeed = $ISOSpeed;
+        $this->focalLengthIn35MmFilm = $focalLengthIn35MmFilm;
+        $this->gpsLatitudeRef = $gpsLatitudeRef;
+        $this->gpsLongitudeRef = $gpsLongitudeRef;
     }
 
     public static function fromExifArray(array $exifArray): self
     {
         return new self(
-            isset($exifArray['Make']) ? Maker::fromString((string) $exifArray['Make']) : Maker::undefined(),
-            isset($exifArray['Model']) ? Model::fromString((string) $exifArray['Model']) : Model::undefined(),
-            isset($exifArray['MakerNote']) ? MakerNote::fromString((string) $exifArray['MakerNote']) : MakerNote::undefined(),
+            isset($exifArray['Make']) ? Maker::fromString($exifArray['Make']) : Maker::undefined(),
+            isset($exifArray['Model']) ? Model::fromString($exifArray['Model']) : Model::undefined(),
+            isset($exifArray['MakerNote']) ? MakerNote::fromString($exifArray['MakerNote']) : MakerNote::undefined(),
             isset($exifArray['Orientation']) && is_int($exifArray['Orientation']) ? Orientation::fromInt($exifArray['Orientation']) : Orientation::undefined(),
             isset($exifArray['ExposureProgram']) && is_int($exifArray['ExposureProgram']) ? ExposureProgram::fromInt($exifArray['ExposureProgram']) : ExposureProgram::undefined(),
-            isset($exifArray['ExposureTime']) ? ExposureTime::fromExifRational((string) (string) $exifArray['ExposureTime']) : ExposureTime::undefined(),
-            isset($exifArray['FocalLength']) ? FocalLength::fromExifRational((string) $exifArray['FocalLength']) : FocalLength::undefined(),
+            isset($exifArray['ExposureTime']) ? ExposureTime::fromExifRational($exifArray['ExposureTime']) : ExposureTime::undefined(),
+            isset($exifArray['FocalLength']) ? FocalLength::fromExifRational($exifArray['FocalLength']) : FocalLength::undefined(),
             isset($exifArray['Flash']) && is_int($exifArray['Flash']) ? Flash::fromInt($exifArray['Flash']) : Flash::undefined(),
-            isset($exifArray['ApertureValue']) ? Aperture::fromExifRational((string) $exifArray['ApertureValue']) : Aperture::undefined(),
-            isset($exifArray['ISOSpeedRatings']) && is_numeric($exifArray['ISOSpeedRatings']) ? ISOSpeed::fromInt((int)$exifArray['ISOSpeedRatings']) : ISOSpeed::undefined()
+            isset($exifArray['ApertureValue']) ? Aperture::fromExifRational($exifArray['ApertureValue']) : Aperture::undefined(),
+            isset($exifArray['ISOSpeedRatings']) && is_numeric($exifArray['ISOSpeedRatings']) ? ISOSpeed::fromInt((int)$exifArray['ISOSpeedRatings']) : ISOSpeed::undefined(),
+            isset($exifArray['FocalLengthIn35mmFilm']) && is_numeric($exifArray['FocalLengthIn35mmFilm']) ? FocalLengthIn35MmFilm::fromInt($exifArray['FocalLengthIn35mmFilm']) : FocalLengthIn35MmFilm::undefined(),
+            isset($exifArray['GPSLatitudeRef']) ? GpsLatitudeRef::fromString($exifArray['GPSLatitudeRef']) : GpsLatitudeRef::undefined(),
+            isset($exifArray['GPSLongitudeRef']) ? GpsLongitudeRef::fromString($exifArray['GPSLongitudeRef']) : GpsLongitudeRef::undefined()
         );
     }
 
@@ -134,5 +153,20 @@ class CameraData
     public function getISOSpeed(): ISOSpeed
     {
         return $this->ISOSpeed;
+    }
+
+    public function getFocalLengthIn35MmFilm(): FocalLengthIn35MmFilm
+    {
+        return $this->focalLengthIn35MmFilm;
+    }
+
+    public function getGpsLatitudeRef(): GpsLatitudeRef
+    {
+        return $this->gpsLatitudeRef;
+    }
+
+    public function getGpsLongitudeRef(): GpsLongitudeRef
+    {
+        return $this->gpsLongitudeRef;
     }
 }

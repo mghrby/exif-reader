@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace ExifReader\FileData;
+namespace ExifReader\CameraData;
 
 use ExifReader\EmptiableString;
 
-class FileName
+class GpsLongitudeRef
 {
     use EmptiableString;
 }

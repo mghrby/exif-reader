@@ -50,3 +50,25 @@ class Flash
         return new self(-1);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

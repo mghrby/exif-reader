@@ -13,16 +13,15 @@ trait Coordinate
         $this->floatCoordinate = $floatCoordinate;
     }
 
-    /** @param array<string> $coordinates */
     public static function fromExifArray(array $coordinates, string $ref): self
     {
         if (! self::guardRefIsValid($ref) || ! self::guardCoordinatesArrayIsValid($coordinates)) {
             return self::undefined();
         }
 
-        $floatCoordinate = self::floatFromString((string) $coordinates[0])
-            + (self::floatFromString((string) $coordinates[1]) / 60)
-            + (self::floatFromString((string) $coordinates[2]) / 3600);
+        $floatCoordinate = self::floatFromString($coordinates[0])
+            + (self::floatFromString($coordinates[1]) / 60)
+            + (self::floatFromString($coordinates[2]) / 3600);
 
         if (! self::guardBoundaries($floatCoordinate)) {
             return self::undefined();
@@ -42,7 +41,7 @@ trait Coordinate
 
     public function getFloat(): ?float
     {
-        return $this->floatCoordinate ? round($this->floatCoordinate, 6) : null;
+        return $this->floatCoordinate ? round($this->floatCoordinate, 16) : null;
     }
 
     public function __toString(): string
@@ -62,7 +61,7 @@ trait Coordinate
         return in_array($ref, self::AVAILABLE_REF);
     }
 
-    /** @param array<string> $coordinates */
+    /* @param $coordinates array<string> */
     private static function guardCoordinatesArrayIsValid(array $coordinates): bool
     {
         if (count($coordinates) !== 3) {
@@ -70,10 +69,10 @@ trait Coordinate
         }
 
         foreach ($coordinates as $coordinate) {
-            if (strpos((string) $coordinate, '/') === false) {
+            if (strpos($coordinate, '/') === false) {
                 return false;
             }
-            $coordinateParts = explode('/', (string) $coordinate);
+            $coordinateParts = explode('/', $coordinate);
             if (! is_numeric($coordinateParts[0]) || ! is_numeric($coordinateParts[1])) {
                 return false;
             }

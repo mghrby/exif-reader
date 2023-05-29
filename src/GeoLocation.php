@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExifReader;
 
 use ExifReader\GeoLocation\Altitude;
+use ExifReader\GeoLocation\Direction;
 use ExifReader\GeoLocation\Latitude;
 use ExifReader\GeoLocation\Longitude;
 
@@ -18,29 +19,35 @@ class GeoLocation
     /** @var Altitude */
     private $altitude;
 
+    private $direction;
+
     private function __construct(
         Latitude $latitude,
         Longitude $longitude,
-        Altitude $altitude
+        Altitude $altitude,
+        Direction $direction
     ) {
         $this->latitude = $latitude;
         $this->longitude = $longitude;
         $this->altitude = $altitude;
+        $this->direction = $direction;
     }
 
-    /** @psalm-suppress MixedArgumentTypeCoercion */
     public static function fromExifArray(array $exifArray): self
     {
         return new self(
-            isset($exifArray['GPSLatitude']) && is_array($exifArray['GPSLatitude']) && isset($exifArray['GPSLatitudeRef'])
-                ? Latitude::fromExifArray($exifArray['GPSLatitude'], (string) $exifArray['GPSLatitudeRef'])
+            isset($exifArray['GPSLatitude']) && isset($exifArray['GPSLatitudeRef'])
+                ? Latitude::fromExifArray($exifArray['GPSLatitude'], $exifArray['GPSLatitudeRef'])
                 : Latitude::undefined(),
-            isset($exifArray['GPSLongitude']) && is_array($exifArray['GPSLongitude']) && isset($exifArray['GPSLongitudeRef'])
-                ? Longitude::fromExifArray($exifArray['GPSLongitude'], (string) $exifArray['GPSLongitudeRef'])
+            isset($exifArray['GPSLongitude']) && isset($exifArray['GPSLongitudeRef'])
+                ? Longitude::fromExifArray($exifArray['GPSLongitude'], $exifArray['GPSLongitudeRef'])
                 : Longitude::undefined(),
             isset($exifArray['GPSAltitude'])
-                ? Altitude::fromString((string) $exifArray['GPSAltitude'])
-                : Altitude::undefined()
+                ? Altitude::fromString($exifArray['GPSAltitude'])
+                : Altitude::undefined(),
+            isset($exifArray['GPSImgDirection'])
+                ? Direction::fromString($exifArray['GPSImgDirection'])
+                : Direction::undefined()
         );
     }
 
@@ -57,5 +64,10 @@ class GeoLocation
     public function getAltitude(): Altitude
     {
         return $this->altitude;
+    }
+    
+    public function getDirection(): Direction
+    {
+        return $this->direction;
     }
 }

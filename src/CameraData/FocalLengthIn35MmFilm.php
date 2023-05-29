@@ -1,19 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace ExifReader\FileData;
+namespace ExifReader\CameraData;
 
-class FileSize
+use ExifReader\ExifRational;
+
+class FocalLengthIn35MmFilm
 {
-    /** @var int */
+    /** @var int|float */
     private $value;
 
-    private function __construct(int $value)
+    private function __construct(int|float $value)
     {
         $this->value = $value;
     }
 
-    public static function fromInt(int $value): self
+    public static function fromInt(int|float $value): self
     {
         if ($value < 0) {
             return self::undefined();
@@ -27,7 +29,7 @@ class FileSize
         return new self(0);
     }
 
-    public function getIntValue(): int
+    public function getValue(): int|float
     {
         return $this->value;
     }

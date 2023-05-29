@@ -5,4 +5,5 @@ namespace ExifReader;
 
 class CannotReadExifData extends \Exception
 {
+
 }
