@@ -1,13 +1,13 @@
 # Exif reader
 
-[![Latest Stable Version](https://poser.pugx.org/antodippo/exif-reader/v)](//packagist.org/packages/antodippo/exif-reader)
-![PHP7.2 build](https://github.com/antodippo/exif-reader/workflows/PHP7.2/badge.svg)
-![PHP7.3 build](https://github.com/antodippo/exif-reader/workflows/PHP7.3/badge.svg)
-![PHP7.4 build](https://github.com/antodippo/exif-reader/workflows/PHP7.4/badge.svg)
+[![Latest Stable Version](https://poser.pugx.org/Abdelrahmanelmaghraby\ExifReader/v)](//packagist.org/packages/Abdelrahmanelmaghraby\ExifReader)
+![PHP7.2 build](https://github.com/Abdelrahmanelmaghraby\ExifReader/workflows/PHP7.2/badge.svg)
+![PHP7.3 build](https://github.com/Abdelrahmanelmaghraby\ExifReader/workflows/PHP7.3/badge.svg)
+![PHP7.4 build](https://github.com/Abdelrahmanelmaghraby\ExifReader/workflows/PHP7.4/badge.svg)
 
-[![codecov](https://codecov.io/gh/antodippo/exif-reader/branch/master/graph/badge.svg)](https://codecov.io/gh/antodippo/exif-reader)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fantodippo%2Fexif-reader%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/antodippo/exif-reader/master)
-[![Type coverage badge](https://shepherd.dev/github/antodippo/exif-reader/coverage.svg)](https://shepherd.dev/github/antodippo/exif-reader)
+[![codecov](https://codecov.io/gh/Abdelrahmanelmaghraby\ExifReader/branch/master/graph/badge.svg)](https://codecov.io/gh/Abdelrahmanelmaghraby\ExifReader)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fantodippo%2Fexif-reader%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/Abdelrahmanelmaghraby\ExifReader/master)
+[![Type coverage badge](https://shepherd.dev/github/Abdelrahmanelmaghraby\ExifReader/coverage.svg)](https://shepherd.dev/github/Abdelrahmanelmaghraby\ExifReader)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This is a simple, straightforward and fully typed Exif reader library. It's based on [`exif_read_data`](https://www.php.net/manual/en/function.exif-read-data.php) PHP function, but it avoids a lot of headaches. It requires the [Exif extension](https://www.php.net/manual/en/exif.installation.php) to be installed.
@@ -15,7 +15,7 @@ This is a simple, straightforward and fully typed Exif reader library. It's base
 The simplest way to install it is through Composer:
 
 ```bash
-$ composer require antodippo/exif-reader
+$ composer require Abdelrahmanelmaghraby\ExifReader
 ```
 
 To use it, it's as simple as this:
