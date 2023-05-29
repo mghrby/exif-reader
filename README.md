@@ -15,7 +15,7 @@ This is a simple, straightforward and fully typed Exif reader library. It's base
 The simplest way to install it is through Composer:
 
 ```bash
-$ composer require Abdelrahmanelmaghraby\ExifReader
+$ composer require abdelrahmanelmaghraby/exif-reader
 ```
 
 To use it, it's as simple as this:
